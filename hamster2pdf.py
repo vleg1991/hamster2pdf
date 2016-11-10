@@ -6,6 +6,7 @@ import datetime
 import hamster.client
 import argparse
 import pypandoc
+import codecs
 
 # custom settings:
 
@@ -54,7 +55,7 @@ pdfFilename = os.path.splitext(args.reportFile)[0]+".pdf"
 
 # write out header block:
 
-mdFile = open(mdFilename, "w")
+mdFile = codecs.open(mdFilename, "w", encoding="utf-8")
 
 mdFile.write("---\n")
 mdFile.write("title: '**%s %s - %s**'\n" % (reportTitle, args.startDate, args.endDate))
