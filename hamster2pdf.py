@@ -4,9 +4,11 @@
 import os
 import datetime
 import hamster.client
+import reports
 import argparse
-import pypandoc
-import codecs
+import pdfkit
+import gettext
+gettext.install('brainz', '../datas/translations/')
 
 # custom settings:
 
@@ -50,39 +52,16 @@ if args.lastmonth:
 
 # prepare filenames:
 
-mdFilename = os.path.splitext(args.reportFile)[0]+".md"
+htmlFilename = os.path.splitext(args.reportFile)[0]+".html"
 pdfFilename = os.path.splitext(args.reportFile)[0]+".pdf"
 
-# write out header block:
-
-mdFile = codecs.open(mdFilename, "w", encoding="utf-8")
-
-mdFile.write("---\n")
-mdFile.write("title: '**%s %s - %s**'\n" % (reportTitle, args.startDate, args.endDate))
-mdFile.write("...\n\n")
-
-# read hamster database and export hamster records to .md file:
-
 storage = hamster.client.Storage()
-recordCount = 0
+facts = storage.get_todays_facts()
 
-for fact in storage.get_facts(args.startDate, args.endDate):
-	if fact.activity == activityFilter:
-		continue
-	recordCount +=1
-	tags = "#"+", #".join(fact.tags)
-	tags = ("" if tags == "#" else tags)
-	mdFile.write("**%s** %s@%s\n" % (fact.date, fact.activity, fact.category))
-	mdFile.write("---\n")
-	mdFile.write("`%s`\n\n%s\n\n" % (tags, fact.description))
+# generate report
 
-mdFile.close()
+reports.simple(facts, args.startDate, args.endDate, htmlFilename)
 
-# convert .md to .pdf file:
+# convert .html to .pdf file:
 
-pdoc_args = ["-V", "geometry: margin=2.5cm", "-V", "papersize: a4paper"]
-pdfFile = pypandoc.convert(mdFilename, "pdf", outputfile=pdfFilename, extra_args=pdoc_args)
-
-# results:
-
-print recordCount, "records from", args.startDate, "to", args.endDate, "exported to", pdfFilename
+pdfkit.from_file(htmlFilename, pdfFilename)
