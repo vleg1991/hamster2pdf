@@ -1,3 +1,16 @@
+UPDATE by vleg1991:
+
+Here, I've integrated the forked script with HTML report generation engine by Hamster.
+
+```
+
+## New Dependecies
+
+Uses `pdfkit`
+
+```
+
+
 # hamster2pdf.py
 
 Reads the activities, contexts, tags and descriptions from the [Hamster Time Tracker](https://github.com/projecthamster/hamster)
