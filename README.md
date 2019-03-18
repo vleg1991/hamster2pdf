@@ -27,7 +27,6 @@ The dates must be given in `YYYY-MM-DD` format.
 
 It will output both .html and .pdf files.
 
-```
 
 ## Sample output (.pdf file)
 
