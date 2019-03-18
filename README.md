@@ -6,7 +6,7 @@ Here, I've integrated the forked script with HTML report generation engine by Ha
 # hamster2pdf.py
 
 Reads the activities, contexts, tags and descriptions from the [Hamster Time Tracker](https://github.com/projecthamster/hamster)
-database and outputs them sorted by date to MarkDown and PDF files. Does not
+database and outputs them sorted by date to HTML and PDF files. Does not
 output task start and end times or durations.
 
 Look at the sample output below.
