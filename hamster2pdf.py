@@ -56,7 +56,7 @@ htmlFilename = os.path.splitext(args.reportFile)[0]+".html"
 pdfFilename = os.path.splitext(args.reportFile)[0]+".pdf"
 
 storage = hamster.client.Storage()
-facts = storage.get_todays_facts()
+facts = storage.get_facts(args.startDate, args.endDate)
 
 # generate report
 
